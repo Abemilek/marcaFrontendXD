@@ -15,6 +15,6 @@ async function getMarcas() {
         return;
     }
 
-    const masrcas = await response.json();
+    const marcas = await response.json();
 	return marcas;
 }
