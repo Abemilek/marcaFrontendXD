@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marcas | Librería El Estudiante</title>
+    <link rel="stylesheet" href="../../Index.css" />
+    <link rel="stylesheet" href="../admin.css" />
+    <link rel="stylesheet" href="../table.css" />
+    <link rel="stylesheet" href="../../utils.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="logo">
+            <h1>Librería El Estudiante</h1>
+        </div>
+        <div class="usuario">
+            <span id="usuarioNombre">Usuario: </span>
+            <button id="cerrarSesion" type="button">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="../../Factura.html">📄 Facturación</a></li>
+                <li><a href="../../Ventas.html">🛒 Ventas</a></li>
+                <li><a href="../../compras.html">📦 Compras</a></li>
+                <li><a href="../../Inventario.html">📊 Movimiento de Inventario</a></li>
+            </ul>
+        </nav>
+        <li class="submenu">
+            <a href="#">📂 Gestión de Catálogos</a>
+            <ul class="submenu-lista">
+                <li><a href="../Producto/index.html">📚 Productos</a></li>
+                <li><a href="../../Clientes.html">👥 Clientes</a></li>
+                <li><a href="../../Proveedores.html">🏭 Proveedores</a></li>
+                <li><a href="./index.html">🏷️ Marcas</a></li>
+            </ul>
+        </li>
+    </aside>
+
+    <main class="contenido-principal">
+        <h2>🏷️ Lista de Marcas</h2>
+
+        <h3>Crear/Editar Marca</h3>
+        <!-- <form id="brandForm" onsubmit="createBrand(event)"> -->
+            <form id="brandForm" onsubmit="onSubmitBrand(event)">
+            <input type="hidden" id="brandId" />
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" placeholder="Nombre de la marca" required />
+            <button type="submit" id="submitButton">Crear Marca</button>
+        </form>
+
+        <div id="tbl-container-brands" class="table-container shadow-md"></div>
+    </main>
+
+    <script src="../../auth.js"></script>
+    <script src="../table.js"></script>
+    <script src="./marcas.service.js"></script>
+    <script src="./marcas.js"></script>
+</body>
+</html>
