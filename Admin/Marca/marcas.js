@@ -44,35 +44,44 @@ document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("brandForm");
 	form.onsubmit = (e) => updateBrand(e, row.idMarca);
   }
-  
-  async function updateBrand(event, brandId) {
-	event.preventDefault();
-	const name = document.getElementById("name").value;
-  
-	const body = {
-	  nombreMarca: name,
-	  activo: true,
-	};
-  
-	const url = `http://localhost:5005/api/marca/${brandId}`;
-	const token = localStorage.getItem("authToken");
-	const response = await fetch(url, {
-	  method: "PUT",
-	  headers: {
-		"Content-Type": "application/json",
-		Authorization: `Bearer ${token}`,
-	  },
-	  body: JSON.stringify(body),
-	});
-  
-	if (response.ok) {
-	  alert("Marca actualizada correctamente");
-	  generateBrandTable();
-	  resetForm();
-	} else {
-	  alert("Error al actualizar la marca");
-	}
-  }
+
+async function updateBrand(event, brandId) {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+
+    const body = {
+        idMarca: Number(brandId),
+        nombreMarca: name,
+        activo: true,
+        fechaRegistro: new Date().toISOString()
+    };
+
+    const url = `http://localhost:5005/api/marca/${brandId}`;
+    const token = localStorage.getItem("authToken");
+
+    try {
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Datos inválidos");
+        }
+
+        alert("¡Marca actualizada con éxito!");
+        generateBrandTable();
+        resetForm();
+    } catch (error) {
+        console.error("Error completo:", error);
+        alert(`Error: ${error.message}`);
+    }
+}
   
   async function deleteBrand(row) {
 	const brandId = row.idMarca;
